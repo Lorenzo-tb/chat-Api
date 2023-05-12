@@ -17,4 +17,9 @@ async function findAll(){
     return db.collection(collection).findAll().toArray();
 }
 
+async function insertOne(colletcion, objeto){
+    const db = await connect();
+    return db.collection(colletcion).insertOne(objeto);
+}
+
 module.exports = {findAll};
