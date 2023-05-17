@@ -1,32 +1,15 @@
 const db = require("./db");
 
 function listarSalas(){
-    return db.findAll("salas")    
+    let salas = db.findAll("salas");  
 }
 
-function listarSalas(){
-    return {
-        "_id":{
-            "$oid": "skdfv23inevfpf76vinirefo10"
-        },
-        "nome": "Guerreiros da Info 63 (melhor info)",
-        "tipo": "publica"
-    },
-    {
-        "_id":{
-            "$oid": "skdfv23inevfpf76vinirefo12"
-        },
-        "nome": "Fracassados da Info 63 AB (pior info)",
-        "tipo": "publica"
-    },
-    {
-        "_id":{
-            "$oid": "skdfv23inevfpf76vinirefo15"
-        },
-        "nome": "alguma sala privada",
-        "tipo": "privada",
-        "chave": "melhorInfo=63SemLetra"
-    }
+let buscarSala = async (idsala)=>{
+    return db.findOne("salas",idsala);
+}
+
+let atualizarMensagens = async (sala)=>{
+    return await db.updateOne("salas", sala,{_id:sala.id});
 }
 
 module.exports = {listarSalas};
