@@ -1,16 +1,16 @@
-const db = require("./db");
+import { insertOne, findOne, updateOne } from "./db";
 
 async function registrarUsuario(nick){
-    return await db.insertOne("usuario",{"nick":nick})
+    return await insertOne("usuario",{"nick":nick})
 };
 
 let buscarUsuario = async (idUser)=>{
-    let user = await db.findOne("usuarios",idsala);
+    let user = await findOne("usuarios",idsala);
     return user;
 };
 
 let alterarUsuario = async (user)=>{
-    return await db.updateOne("usuarios", user,{_id:user.id});
+    return await updateOne("usuarios", user,{_id:user.id});
 }
 
-module.exports = {registrarUsuario};
+export default {registrarUsuario, buscarUsuario, alterarUsuario};

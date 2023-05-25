@@ -1,11 +1,11 @@
-const salaModel = require("../models/salaModel");
+import { listarSalas, buscarSala, atualizarMensagens, buscarMensagem } from "../models/salaModel";
 
-exports.get=async()=>{
-    return await salaModel.listarSalas();
+async function get(req, res){
+    return await listarSalas();
 }
 
-exports.entrar = async (idUser,idsala)=>{
-    const sala = await salaModel.buscarSala(idsala);
+async function entrar(idUser,idsala){
+    const sala = await buscarSala(idsala);
     let usuarioModel=require("../models/usuarioModel");
     let user=await usuarioModel.buscarUsuario(idUser);
     user.sala = {_id:sala._id, nome:sala.nome, tipo:sala.tipo};
@@ -16,8 +16,8 @@ exports.entrar = async (idUser,idsala)=>{
     return false;
 }
 
-exports.enviarMensagem = async(nick, msg, idsala)=>{
-    const sala = await salaModel.buscarSala(idsala);
+async function enviarMensagem(nick, msg, idsala){
+    const sala = await buscarSala(idsala);
     if(!sala.msgs){
         sala.msgs=[];
     }
@@ -29,14 +29,16 @@ exports.enviarMensagem = async(nick, msg, idsala)=>{
             nick:nick
         }
     )
-    let resp = await salaModel.atualizarMensagens(sala);
+    let resp = await atualizarMensagens(sala);
     return {"msg":"OK", "timestamp":timestamp};
 }
 
-exports.buscarMensagem = async (idsala, timestamp)=>{
-    let mensagens = await salaModel.buscarMensagem(idsala, timestamp);
+async function buscarMensagem(idsala, timestamp){
+    let mensagens = await buscarMensagem(idsala, timestamp);
     return{
         "timestamp":mensagens[mensagens.lenght - 1].timestamp,
         "msgs": mensagens
     };
 }
+
+export default {get, entrar, enviarMensagem, buscarMensagem};

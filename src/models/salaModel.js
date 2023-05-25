@@ -1,24 +1,24 @@
-const { Timestamp } = require("mongodb");
-const db = require("./db");
+import { Timestamp } from "mongodb";
+import { findAll, findOne, updateOne } from "./db";
 
-function listarSalas(){
-    let salas = db.findAll("salas");  
+async function listarSalas(){
+    let salas = findAll("salas");  
 }
 
-let buscarSala = async (idsala)=>{
-    return db.findOne("salas",idsala);
+async function buscarSala(idsala) {
+    return findOne("salas", idsala);
 }
 
-let atualizarMensagens = async (sala)=>{
-    return await db.updateOne("salas", sala,{_id:sala.id});
+async function atualizarMensagens(sala) {
+    return await updateOne("salas", sala, { _id: sala.id });
 }
 
-let buscarMensagem = async (idsala, timestamp)=>{
+async function buscarMensagem(idsala, timestamp) {
     let sala = await buscarSala(idsala);
-    if(sala.msgs){
-        let msgs=[];
-        sala.msgs.forEach((msg)=>{
-            if(msg.timestamp>=timestamp){
+    if (sala.msgs) {
+        let msgs = [];
+        sala.msgs.forEach((msg) => {
+            if (msg.timestamp >= timestamp) {
                 msgs.push(msg);
             }
         });
@@ -27,6 +27,6 @@ let buscarMensagem = async (idsala, timestamp)=>{
     return [];
 }
 
-module.exports = {listarSalas};
+export default {listarSalas, buscarSala, atualizarMensagens, buscarMensagem};
 
 
