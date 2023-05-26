@@ -6,6 +6,7 @@ exports.get= async()=>{
 
 exports.entrar = async (idUser,idSala)=>{
     const sala = await salaModel.buscarSala(idSala);
+    console.log(idSala);
     let usuarioModel=require("../models/usuarioModel");
     let user=await usuarioModel.buscarUsuario(idUser);
     user.sala = {_id:sala._id, nome:sala.nome, tipo:sala.tipo};
@@ -21,16 +22,23 @@ exports.enviarMensagem = async(nick, msg, idSala)=>{
     if(!sala.msgs){
         sala.msgs=[];
     }
+
+    console.log(sala.msgs);
+
     timestamp=Date.now();
-    sala.msgs.push(
-        {
-            timestamp:timestamp,
-            msg:msg,
-            nick:nick
-        }
-    )
+
+    let novaMensagem = {
+        "timestamp":timestamp,
+        "msg":msg, 
+        "nick": nick
+    }
+    
+    sala.msgs.push(novaMensagem);
+
+    console.log(sala.msgs);
     let resp = await salaModel.atualizarMensagens(sala);
-    return {"msg":"OK", "timestamp":timestamp};
+    console.log(resp);
+    return {"timestamp":timestamp, "msg":msg, "nick": nick};
 }
 
 exports.buscarMensagens = async (idSala, timestamp)=>{

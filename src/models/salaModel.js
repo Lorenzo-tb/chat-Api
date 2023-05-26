@@ -11,7 +11,7 @@ let buscarSala = async (idSala)=>{
 }
 
 let atualizarMensagens = async (sala)=>{
-    return await db.updateOne("salas", sala,{_id:sala.id});
+    return await db.updateOne("salas", sala,{_id:sala});
 }
 
 let buscarMensagem = async (idsala, timestamp)=>{
