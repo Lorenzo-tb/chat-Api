@@ -1,5 +1,5 @@
-const token = require("../util/token").default;
-const usuarioModel = require("../models/usuarioModel").default;
+const token = require("../util/token");
+const usuarioModel = require("../models/usuarioModel");
 
 exports.entrar=async(nick)=>{
     const resp = await usuarioModel.registrarUsuario(nick);

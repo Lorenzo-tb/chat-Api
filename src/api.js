@@ -1,9 +1,9 @@
-import express, { urlencoded, json, Router } from "express";
+var express = require("express");
 var app = express();
-app.use(urlencoded({extended : true}));
-app.use(json());
+app.use(express.urlencoded({extended : true}));
+app.use(express.json());
 
-const router = Router();
+const router = express.Router();
 app.use('/', router.get('/',(req, res)=>{
     res.status(200).send("<h1>API - CHAT</h1>")
 }));
@@ -28,7 +28,7 @@ app.use("/salas", router.get("/salas",async(req, res, next)=>{
 
 app.use("/entrar", router.post("/entrar", async(req, res, next)=>{
     const usuarioController = require("./controllers/usuarioController");
-    let resp = await usuarioController.entrar(req,body,nick);
+    let resp = await usuarioController.entrar(reck,body,nick);
     res.status(200).send(resp);
 }));
 
@@ -49,4 +49,4 @@ app.use("/sala/mensagem", router.post("sala/mensagem", async (req, res)=>{
 }))
 
 
-export default app;
+module.exports=app;
