@@ -12,14 +12,11 @@ async function connect(){
     return singleton;
 }
 
-async function findAll(){
-    const db = await connect();
-    return db.collection(collection).findAll().toArray();
-}
 
-async function insertOne(colletcion, objeto){
+
+async function insertOne(colletcion, object){
     const db = await connect();
-    return db.collection(colletcion).insertOne(objeto);
+    return db.collection(colletcion).insertOne(object);
 }
 
 let findAll = async (collection)=>{
@@ -42,4 +39,4 @@ let updateOne = async (collection, object, param)=>{
     return result;
 }
 
-module.exports = {findAll};
+module.exports = {findAll, insertOne, findOne, updateOne};
