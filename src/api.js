@@ -36,10 +36,12 @@ app.use("/entrar", router.post("/entrar", async(req, res, next)=>{
 }));
 
 app.use("/sala/entrar", router.put("/sala/entrar", async (req, res)=>{
-    if(!TokenExpiredError.checkToken(req.body.token,req.body.idUser,req.body.nick)){
+    console.log("teste");
+    /*if(!TokenExpiredError.checkToken(req.body.token,req.body.idUser,req.body.nick)){
         return false;
-    }
-    let resp = await salaController.entrar(req.body.idUser, req.query.idSala);
+    }*/
+    
+    let resp = await salaController.entrar(req.body.idUser, req.body.idSala);
     res.status(200).send(resp);
 }));
 
@@ -55,10 +57,25 @@ app.use("/sala/mensagens", router.get("/sala/mensagens", async (req, res)=>{
     if(!TokenExpiredError.checkToken(req.body.token,req.body.idUser,req.body.nick)){
         return false;
     }
-    let resp= await salaController.buscarMensagens(req.query.idSala, req.query.timestamp);
+    let resp= await salaController.buscarMensagens(req.body.idSala, req.body.timestamp);
     res.status(200).send(resp);
 
-}))
+}));
+
+app.use("/sala/sair", router.put("/sala/sair", async (req, res)=>{
+    if(!TokenExpiredError.checkToken(req.body.token,req.body.idUser,req.body.nick)){
+        return false;
+    }
+    let resp = await salaController.sair(req.body.idUser);
+    res.status(200).send(resp);
+}));
+
+app.use("/sala/criar", router.post("/sala/criar", async(req, res)=>{
+    
+
+    let resp = await salaController.criar(req.body.nome, req.body.tipo, req.body.chave);
+    res.status(200).send(resp);
+}));
 
 
 module.exports=app;

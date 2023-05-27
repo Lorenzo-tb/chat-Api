@@ -10,9 +10,13 @@ let buscarSala = async (idSala)=>{
     return db.findOne("salas",idSala);
 }
 
-let atualizarMensagens = async (sala)=>{
-    return await db.updateOne("salas", sala,{_id:sala});
+
+
+let atualizarMensagens = async (sala, mensagem)=>{
+    return await db.updateOne("salas", mensagem, {_id: sala._id});
 }
+
+
 
 let buscarMensagem = async (idsala, timestamp)=>{
     let sala = await buscarSala(idsala);
@@ -28,6 +32,14 @@ let buscarMensagem = async (idsala, timestamp)=>{
     return [];
 }
 
-module.exports = {listarSalas, atualizarMensagens, buscarMensagem, buscarSala};
+let criarSala = async (nome, tipo, chave)=>{
+    if(tipo == "privada"){
+        return await db.insertOne("salas", {"nome": nome, "tipo": tipo, "chave": chave, "msgs": []});
+    }else{
+        return await db.insertOne("salas", {"nome": nome, "tipo": tipo, "msgs": []});
+    }
+}
+
+module.exports = {listarSalas, atualizarMensagens, buscarMensagem, buscarSala, criarSala};
 
 
