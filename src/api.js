@@ -63,16 +63,17 @@ app.use("/sala/mensagens", router.get("/sala/mensagens", async (req, res)=>{
 }));
 
 app.use("/sala/sair", router.put("/sala/sair", async (req, res)=>{
-    if(!TokenExpiredError.checkToken(req.body.token,req.body.idUser,req.body.nick)){
+    /*if(!TokenExpiredError.checkToken(req.body.token,req.body.idUser,req.body.nick)){
         return false;
-    }
+    }*/
     let resp = await salaController.sair(req.body.idUser);
     res.status(200).send(resp);
 }));
 
 app.use("/sala/criar", router.post("/sala/criar", async(req, res)=>{
-    
-
+    /*if(!TokenExpiredError.checkToken(req.body.token,req.body.idUser,req.body.nick)){
+        return false;
+    }*/
     let resp = await salaController.criar(req.body.nome, req.body.tipo, req.body.chave);
     res.status(200).send(resp);
 }));
