@@ -12,7 +12,6 @@ const checkToken = (token, id, key) => {
         else {
             return false;
         }
-
     });
 }
 

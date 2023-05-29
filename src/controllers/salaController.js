@@ -39,8 +39,9 @@ exports.enviarMensagem = async(nick, msg, idSala)=>{
     
     sala.msgs.push(novaMensagem);
     console.log(sala.msgs);
+    let mensagens = sala.msgs;
     
-    let resp = await salaModel.atualizarMensagens(sala, novaMensagem);
+    let resp = await salaModel.atualizarMensagens(sala);
 
     return {"timestamp":timestamp, "msg":"OK", "nick": nick};
 }

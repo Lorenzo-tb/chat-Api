@@ -12,14 +12,15 @@ let buscarSala = async (idSala)=>{
 
 
 
-let atualizarMensagens = async (sala, mensagem)=>{
-    return await db.updateOne("salas", mensagem, {_id: sala._id});
+let atualizarMensagens = async (sala)=>{
+    return await db.updateOne("salas", sala, {_id: sala._id});
 }
 
 
 
 let buscarMensagem = async (idsala, timestamp)=>{
     let sala = await buscarSala(idsala);
+    console.log(sala);
     if(sala.msgs){
         let msgs=[];
         sala.msgs.forEach((msg)=>{
